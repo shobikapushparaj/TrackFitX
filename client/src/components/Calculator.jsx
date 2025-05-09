@@ -31,6 +31,7 @@ export default function Calculator() {
       <>
         <NavBar />
         <div className="calcii_container">
+
   {/* <div className="calcii_inner">
     <h1 className="calcii_h1">Calcii Form</h1> */}
 
@@ -57,6 +58,7 @@ export default function Calculator() {
   ))}
 </div>
       <div className="calculator">
+        <div>
         {tab === "bmi" && <BMICalculator onResult={(v) => updateResult("bmi", v)} />}
         {tab === "bmr" && <BMRCalculator onResult={(v) => updateResult("bmr", v)} />}
         {tab === "tdee" && <TDEECalculator onResult={(v) => updateResult("tdee", v)} />}
@@ -64,10 +66,12 @@ export default function Calculator() {
         {tab === "idealWeight" && <IdealWeightCalculator onResult={(v) => updateResult("idealWeight", v)} />}
         {tab === "bodyFat" && <BodyFatCalculator onResult={(v) => updateResult("bodyFat", v)} />}
         {tab === "caloriesBurned" && <CaloriesBurnedCalculator onResult={(v) => updateResult("caloriesBurned", v)} />}
+        </div>
       </div>
 
       <div className="calcii_summary">
-  <h2 className="calcii_h2">Total Result Summary</h2>
+        <div>
+        <h2 className="calcii_h2">Total Result Summary</h2>
   <p className="calcii_text">BMI: {results.bmi ?? "Not Calculated"}</p>
   <p className="calcii_text">BMR: {results.bmr ? `${results.bmr.toFixed(2)} kcal/day` : "Not Calculated"}</p>
   <p className="calcii_text">TDEE: {results.tdee ? `${results.tdee.toFixed(2)} kcal/day` : "Not Calculated"}</p>
@@ -75,7 +79,9 @@ export default function Calculator() {
   <p className="calcii_text">Ideal Weight: {results.idealWeight ? `${results.idealWeight} kg` : "Not Calculated"}</p>
   <p className="calcii_text">Body Fat %: {results.bodyFat ? `${results.bodyFat}%` : "Not Calculated"}</p>
   <p className="calcii_text">Calories Burned: {results.caloriesBurned ? `${results.caloriesBurned} kcal` : "Not Calculated"}</p>
-</div>
+        </div>
+  
+     </div>
     </div>
       </>
     );

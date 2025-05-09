@@ -35,9 +35,6 @@ const Login = () => {
 
   return (
     <div className="loginContainer">
-      <div className="loginLeft">
-        {/* Optional: Add an image or branding here */}
-      </div>
       <div className="loginRight">
         <h1 className="gradient-login-text1" style={{ fontSize: '50px', marginBottom: '50px', fontWeight: 'bold', marginLeft: '30px' }}>
           WELCOME BACK
