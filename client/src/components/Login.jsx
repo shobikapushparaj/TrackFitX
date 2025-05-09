@@ -36,12 +36,12 @@ const Login = () => {
   return (
     <div className="loginContainer">
       <div className="loginRight">
-        <h1 className="gradient-login-text1" style={{ fontSize: '50px', marginBottom: '50px', fontWeight: 'bold', marginLeft: '30px' }}>
+        <h1 className="gradient-login-text1">
           WELCOME BACK
         </h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username" style={{ fontSize: '38px', fontWeight: 'bold' }} className="my-text-style-login">
+            <label htmlFor="username" className="my-text-style-login">
               Username
             </label>
             <input
@@ -55,20 +55,20 @@ const Login = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password" style={{ fontSize: '38px', fontWeight: 'bold' }} className="my-text-style-login">
+            <label htmlFor="password" className="my-text-style-login">
               Password
             </label>
             <input
               type="password"
               id="password"
               name="password"
-              style={{ marginLeft: '60px' }}
+              style={{marginLeft:'50px'}}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <button type="submit" className="loginbt" style={{ fontSize: '22px', fontWeight: 'bold' }}>
+          <button type="submit" className="loginbt" >
             Login
           </button>
         </form>
