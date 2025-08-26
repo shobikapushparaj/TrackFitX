@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import NavBar from './NavBar';
-import '../index.css';
+import '../styles/addform.css';
 const AddExercise = () => {
   const userId = sessionStorage.getItem('userId');
   const [formData, setFormData] = useState({
@@ -20,8 +20,12 @@ const AddExercise = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.name || !formData.date || !formData.time || !formData.count || !formData.duration) {
+      alert("Please fill all the fields before submitting.");
+      return;
+    }
     try {
-      await axios.post('http://localhost:4000/add-exercise', formData);
+      await axios.post('http://localhost:4000/api/exercise/add-exercise', formData);
       alert('Exercise Added!');
       setFormData({ name: '', date: '', time: '', count: '', duration: '', userId, type: 'todo' });
     } catch (err) {

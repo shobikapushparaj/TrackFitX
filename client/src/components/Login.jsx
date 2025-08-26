@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import '../index.css';
+import '../styles/login.css';
 
 const Login = () => {
   const [name, setName] = useState('');
@@ -11,10 +11,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
+    setError(''); 
 
     try {
-      const response = await axios.post('http://localhost:4000/login', { name, password });
+      const response = await axios.post('http://localhost:4000/api/auth/login', { name, password });
       const userData = response.data;
 
       if (userData && userData.id) {

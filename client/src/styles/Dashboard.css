@@ -1,0 +1,51 @@
+.dashboard-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.slogan-left-container {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  max-width: 600px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  color: #fff;
+  text-align: left;
+}
+
+.slogan-heading {
+  font-size: 2.0rem;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.slogan-subtext {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #ddd;
+}
+
+.slogan-button {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #047378;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 0 10px #047378, 0 0 20px #047378, 0 0 30px #047378;
+  transition: all 0.3s ease;
+}
+
+.slogan-button:hover {
+  background-color: #0f7378;
+  color: white; 
+  box-shadow: 0 0 15px #0f7378, 0 0 25px #0f7378, 0 0 40px #0f7378;
+  transform: scale(1.05);
+}
+

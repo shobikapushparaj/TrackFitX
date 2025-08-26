@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavBar from './NavBar';
-
+import '../styles/history.css'
 export const History = () => {
   const [completed, setCompleted] = useState([]);
   const userId = sessionStorage.getItem('userId');
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/exercises/${userId}?type=done`)
+    axios.get(`http://localhost:4000/api/exercise/exercises/${userId}?type=done`)
       .then(res => {
         console.log(res.data);
         setCompleted(res.data);

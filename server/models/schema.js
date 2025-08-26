@@ -9,10 +9,11 @@ const UserSchema = new mongoose.Schema({
     age: { type: Number },
     sex: { type: String },
     goal: { type: String },
-    hypertension: { type: String }, // Add this
-    diabetes: { type: String },     // Add this
+    hypertension: { type: String }, 
+    diabetes: { type: String },     
   });  
 const UserModel = mongoose.model('Signup_details', UserSchema);
+
 const exerciseSchema = new mongoose.Schema({
     userId: { 
         type: mongoose.Schema.Types.ObjectId, 

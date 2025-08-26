@@ -1,0 +1,100 @@
+
+
+
+/* navbar */
+
+.user-icon{
+  width: 32px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.title{
+  font-size:40px;
+}
+
+/* NavBar styles */
+.navbar {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0c6b76;
+  font-family: "Itim", cursive; 
+  padding: 0 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.navbar .title {
+  /* font-size: 24px; */
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+.navbar a:hover {
+  color: #f1c40f; /* Golden color on hover */
+}
+
+
+.navbar .user-icon {
+  font-size: 32px;
+  cursor: pointer;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.navbar .user-icon:hover {
+  color: #f1c40f; /* Golden color on hover */
+}
+
+
+/* Add some padding to the button and navbar */
+
+.navbar a, .navbar .title {
+  padding: 10px;
+}
+
+
+/* Responsive Design for NavBar */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+  }
+
+  .navbar a {
+    margin: 10px 0;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .navbar .user-icon {
+    margin-top: 10px;
+  }
+
+  /* Floating Chatbot Button for mobile */
+  .chatbot-toggle {
+    bottom: 10px;
+    right: 20px;
+  }
+
+  /* ChatBot Popup for mobile */
+  .chatbot-popup {
+    width: 260px;
+    bottom: 70px;
+  }
+}

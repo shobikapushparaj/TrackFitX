@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import './UserProfile.css'; // Optional: for styling
+import '../styles/userprofile.css'; 
 import { IoCloseSharp } from "react-icons/io5";
 
 const UserProfile = ({ userId, onClose }) => {
@@ -9,12 +9,11 @@ const UserProfile = ({ userId, onClose }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // localStorage.setItem("userId", response.data._id); 
     const userId = sessionStorage.getItem('userId');
     console.log(userId);
 
     if (userId) {
-      axios.get(`http://localhost:4000/getuser/${userId}`)
+      axios.get(`http://localhost:4000/api/user/getuser/${userId}`)
         .then(response => {
           setUserDetails(response.data);
           setLoading(false);
@@ -33,7 +32,7 @@ const UserProfile = ({ userId, onClose }) => {
   };
 
   const handleSave = () => {
-    axios.put(`http://localhost:4000/updateuser/${userId}`, userDetails)
+    axios.put(`http://localhost:4000/api/user/updateuser/${userId}`, userDetails)
       .then(result => {
         if (result.data.message === "Email already exists") {
           alert("Email already exists. Please use another email.");

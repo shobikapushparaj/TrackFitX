@@ -1,0 +1,126 @@
+
+.chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  background-color: #0c6b76;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.chatbot-toggle:hover {
+  background-color: #0a5b60;
+}
+
+.chatbot-popup {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  width: 300px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  border-radius: 10px;
+  padding: 10px;
+  overflow: hidden;
+  max-height: 500px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbot-container {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 400px;
+  border: 1px solid #444; /* Darker border for dark theme */
+  border-radius: 10px;
+  position: relative;
+  background-color: #2c2f38; /* Dark background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Dark shadow */
+}
+
+.chat-box {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  background-color: #1f2126; /* Dark chat background */
+  color: #fff; /* White text color for dark theme */
+  border-bottom: 1px solid #444; /* Darker border */
+}
+
+.chat-box .user-msg {
+  text-align: right; /* Align user message to the right */
+  background-color: rgb(12, 113, 126); /* Lighter green background for user message */
+  color: #fff; /* White text color for user */
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 5px;
+  max-width: 80%;
+  margin-left: auto; /* Push user message to the right */
+}
+
+.chat-box .bot-msg {
+  text-align: left; /* Align bot message to the left */
+  background-color: #3a3d42; /* Slightly lighter dark background for bot message */
+  color: #fff; /* White text color for bot */
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 5px;
+  max-width: 80%;
+  margin-right: auto; /* Push bot message to the left */
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  background-color: #333; /* Dark input area */
+  border-top: 1px solid #444; /* Dark border for input */
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #555; /* Dark border for input field */
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: #2f3339; /* Dark background for input field */
+  color: #fff; /* White text color for input */
+}
+
+.chat-input button {
+  background-color: #0c6b76; /* Dark teal button */
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #0a5b60; /* Darker button hover */
+}
+
+/* Responsive Design for NavBar */
+@media (max-width: 768px) {
+  /* Floating Chatbot Button for mobile */
+  .chatbot-toggle {
+    bottom: 10px;
+    right: 20px;
+  }
+
+  /* ChatBot Popup for mobile */
+  .chatbot-popup {
+    width: 260px;
+    bottom: 70px;
+  }
+}

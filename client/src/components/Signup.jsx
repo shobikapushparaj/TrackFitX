@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate,Link } from 'react-router-dom';
-import '../index.css';
+import '../styles/signup.css';
 import axios from 'axios';
 
 <span>Already a user? <Link to='/login'>Login</Link></span>
@@ -28,7 +28,7 @@ const Signup = () => {
       return;
     }
     
-    axios.post('http://localhost:4000/register', { username, email, password })
+    axios.post('http://localhost:4000/api/auth/register', { name: username, email, password })
       .then(result => {
         console.log(result);
         if (result.data.message === "Email already exists") {

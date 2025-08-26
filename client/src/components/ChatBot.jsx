@@ -1,16 +1,15 @@
 import ReactMarkdown from 'react-markdown'; 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../index.css';
+import '../styles/chatbot.css';
 
 const ChatBot = ({ userId }) => {
   const [question, setQuestion] = useState('');
   const [chat, setChat] = useState([]);
   const [userData, setUserData] = useState(null);
 
-  // Fetch user metrics from MongoDB backend on component mount
   useEffect(() => {
-    axios.get(`http://localhost:4000/getuser/${userId}`)
+    axios.get(`http://localhost:4000/api/user/getuser/${userId}`)
       .then(res => {
         console.log(res.data);
         setUserData(res.data);
@@ -25,13 +24,27 @@ const ChatBot = ({ userId }) => {
       const res = await axios.post('http://localhost:5000/predict', {
         query: question,
         metrics: {
-          sex: userData.sex || "Male",  // Ensure 'sex' is part of user data
-          Age: parseInt(userData.age),
-          Height: parseFloat(userData.height) / 100, // cm to meters
-          Weight: parseFloat(userData.weight),
-          Hypertension: userData.hypertension || "No",  // Assuming these fields exist
-          Diabetes: userData.diabetes || "No",  // Same here
-        }
+            sex: userData.sex || "Male",
+            Age: parseInt(userData.age),
+            Height: parseFloat(userData.height) / 100, // cm to meters
+            Weight: parseFloat(userData.weight),
+            Hypertension:
+            userData.hypertension === true ||
+            userData.hypertension === "1" ||
+            userData.hypertension === 1 ||
+            userData.hypertension === "Yes"
+            ? "Yes"
+            : "No",
+
+           Diabetes:
+           userData.diabetes === true ||
+           userData.diabetes === "1" ||
+           userData.diabetes === 1 ||
+           userData.diabetes === "Yes"
+           ? "Yes"
+           : "No",
+      }
+
       });
       const botResponse = res.data.response;
       setChat([...chat, { from: 'user', text: question }, { from: 'bot', text: botResponse }]);

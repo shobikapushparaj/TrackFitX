@@ -1,11 +1,10 @@
 
 import React, { useState } from 'react';
 import { FaUser, FaPlus, FaHistory, FaHome, FaClipboardList,FaCalculator} from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link,Navigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
-import ErrorBoundary from './ErrorBoundary';  // Import ErrorBoundary
-import ChatBot from './ChatBot';  // Import ChatBot component
-import '../index.css';
+import ChatBot from './ChatBot';  
+import '../styles/navbar.css';
 
 const NavBar = () => {
   const [showUserProfile, setShowUserProfile] = useState(false);
@@ -20,11 +19,8 @@ const NavBar = () => {
     setShowChatBot(!showChatBot);
   };
 
-  // Check if userId exists before rendering UserProfile component
   if (!userId) {
-    return (
-      <div>Please log in to view your profile</div>
-    );
+    return <Navigate to="/login" />;
   }
 
   return (
@@ -40,17 +36,13 @@ const NavBar = () => {
       </nav>
       
       {showUserProfile && (
-        <ErrorBoundary>
           <UserProfile userId={userId} onClose={toggleUserProfile} />
-        </ErrorBoundary>
       )}
       
-      {/* Floating ChatBot button */}
       <button className="chatbot-toggle" onClick={toggleChatBot}>
         🤖 Chat
       </button>
 
-      {/* ChatBot popup */}
       {showChatBot && (
         <div className="chatbot-popup">
           <ChatBot userId={userId} />

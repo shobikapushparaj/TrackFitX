@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import "../index.css";
+import "../styles/userform.css";
 
-// Define the updateUserDetails function separately
 const updateUserDetails = async (userId, weight, height, age, sex, goal, hypertension, diabetes) => {
   try {
-    const response = await axios.put(`http://localhost:4000/user-details/${userId}`, {
+    const response = await axios.put(`http://localhost:4000/api/user/user-details/${userId}`, {
       weight,
       height,
       age,
@@ -26,53 +25,32 @@ const updateUserDetails = async (userId, weight, height, age, sex, goal, hyperte
 
 const UserForm = () => {
   const [formData, setFormData] = useState({
-    weight: "",
-    height: "",
-    age: "",
-    sex: "", // Keep this as 'sex' consistently
-    hypertension: "",
-    diabetes: "",
-  });
+  weight: "",
+  height: "",
+  age: "",
+  sex: "",
+  goal: "",          
+  hypertension: "",
+  diabetes: "",
+});
+
   
 
   const navigate = useNavigate();
-  const location = useLocation();  // Used to get the passed state from navigate
+  const location = useLocation();
 
-  const userId = location.state?.userId || sessionStorage.getItem('userId'); // Get userId from navigate or sessionStorage
-
-  // Fetch user data on component mount
-  // useEffect(() => {
-  //   if (userId) {
-  //     axios
-  //       .get(`http://localhost:4000/user-details/${userId}`)  // Adjust API endpoint
-  //       .then((res) => {
-  //         const { weight, height, age, gender, goal } = res.data || {};
-  //         setFormData({
-  //           weight: weight ?? "",
-  //           height: height ?? "",
-  //           age: age ?? "",
-  //           gender: gender ?? "",
-  //           goal: goal ?? "",
-  //         });
-  //       })
-  //       .catch((err) => console.error("Error fetching user data:", err));
-  //   }
-  // }, [userId]);
+  const userId = location.state?.userId || sessionStorage.getItem('userId'); 
 
   useEffect(() => {
     if (userId) {
-      axios
-        .get(`http://localhost:4000/user-details/${userId}`)  // Adjust API endpoint if needed
+      axios.get(`http://localhost:4000/api/user/user-details/${userId}`)
         .then((res) => {
-          // Destructure the response data and ensure 'sex' is used instead of 'gender'
           const { weight, height, age, sex, goal } = res.data || {};
-          
-          // Update the form data state with the fetched values
           setFormData({
             weight: weight ?? "",
             height: height ?? "",
             age: age ?? "",
-            sex: sex ?? "",  // Ensure you're using 'sex' here
+            sex: sex ?? "",  
             goal: goal ?? "",
           });
         })
@@ -90,7 +68,6 @@ const UserForm = () => {
     e.preventDefault();
     try {
       if (userId) {
-        // Call the updateUserDetails function with the form data
         await updateUserDetails(
           userId,
           formData.weight,

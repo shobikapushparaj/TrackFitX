@@ -1,0 +1,83 @@
+
+/* login page */
+
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.loginRight {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 30px;
+  background-color: #1f2126;
+  border: 3px solid #164e51;
+  box-shadow: 0 4px 8px #27a1a7;
+  padding: 60px;
+}
+.loginRight input{
+  background-color: #517c85;
+  color:white;
+}
+.loginbt {
+  margin-left: 120px;
+  height: 45px;
+  width:130px;
+  border-radius: 20px;
+  border:none;
+  font-size: 20px;
+  background-color: #0c6b76;
+  color:white;
+  cursor: pointer;
+}
+
+.loginLeft img {
+  max-width: 100%;
+  height: auto;
+}
+.gradient-login-text1{
+  background-color:#3dd9eb;
+  font-size: 40px;
+  margin-left: 25px;;
+  margin-bottom: 40px;
+  font-weight: bold;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.my-text-style-login{
+  margin-Left: '200px';
+  font-size: 5px;
+  font-family: sans-serif;
+  font-weight: normal;
+}
+
+.form-group {
+  display: flex;
+  justify-content: center;
+  /* margin-bottom: 30px;
+  margin-top: 40px; */
+  margin-bottom: 30px;
+ 
+}
+
+.form-group label {
+  width: 120px; /* Adjust as needed */
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
+
+}
+
+.form-group input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #517c85;
+  color: white;
+  width: 200px;
+}
+

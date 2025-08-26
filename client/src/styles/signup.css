@@ -1,0 +1,95 @@
+
+.loginbtn1{
+  height: 50px;
+  width: 100px;
+  border-radius: 20px;
+  font-size: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-color: #4e82c1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+/* signup page */
+
+.signupContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.signupLeft {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 30px;
+  background-color: #1f2126;
+  border: 3px solid #164e51;
+  box-shadow: 0 4px 8px #27a1a7;
+  padding: 60px;
+  padding-left: 90px;
+  padding-right: 20px;
+}
+
+.signupLeft form{
+  padding-right: 80px;
+}
+
+.form-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+ 
+}
+
+.form-group label {
+  width: 120px; 
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
+
+}
+
+.form-group input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #517c85;
+  color: white;
+  width: 200px;
+}
+
+.signupbt {
+  height: 45px;
+  width: 130px;
+  margin-left: 100px;
+  border-radius: 20px;
+  border:none;
+  font-size: 20px;
+  background-color: #0c6b76;
+  color:white;
+  cursor: pointer;
+  
+}
+
+.gradient-signup-text1{
+  margin-left: 60px;
+  margin-bottom: 40px;
+  background-color:#3dd9eb;
+  font-size: 40px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.my-text-style-signup{
+  margin-Left: '200px';
+  font-size: 5px;
+  font-family: sans-serif;
+  font-weight: normal;
+}

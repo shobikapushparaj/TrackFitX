@@ -1,44 +1,30 @@
-// import React from 'react';
-// import NavBar from './NavBar'; // Import NavBar component
-// import dashImage from '../images/dash.jpg'; 
-// function Dashboard() {
-//   const backgroundStyle = {
-//     backgroundImage: 'url("/images/dash.jpg")',
-//     backgroundSize: 'cover',
-//     backgroundPosition: 'center',
-//     minHeight: '100vh',
-//   };
-
-//   return (
-//     <div style={backgroundStyle}>
-//       <NavBar/>  {/* Add Navbar here */}
-//       <h1 style={{ color: 'white' }}>Dashboard</h1>
-//     </div>
-//   );
-// }
-
-// export default Dashboard;
-
-
-import React from 'react';
+import { Link } from 'react-router-dom';
 import NavBar from './NavBar';
-import dashImage from '../images/dash.jpg'; // ✅ import image
+import dashImage from '../images/dash.jpg';
+import '../styles/Dashboard.css'; 
 
 function Dashboard() {
-  
   const backgroundStyle = {
-    backgroundImage: `url(${dashImage})`, // ✅ use imported image
+    backgroundImage: `url(${dashImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     minHeight: '100vh',
   };
 
-
   return (
-    <div style={backgroundStyle}>
+    <div style={backgroundStyle} className="dashboard-container">
       <NavBar />
-     </div>
-    
+      <div className="slogan-left-container">
+        <h1 className="slogan-heading">
+          Every move and meal you track,<br />
+          Brings your fitness journey back on track
+        </h1>
+        <p className="slogan-subtext">
+          Start tracking now and see your transformation unfold.
+        </p>
+        <Link to='/addexercise' className="slogan-button">Add Exercise</Link>
+      </div>
+    </div>
   );
 }
 

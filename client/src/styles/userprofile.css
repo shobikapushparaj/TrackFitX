@@ -1,0 +1,80 @@
+.user-profile-popup {
+  position: fixed;
+  top: 50px;
+  right: 20px;
+  background-color: #000;
+  border: 3px solid #164e51;
+  padding: 20px;
+  box-shadow: 0 4px 8px #27a1a7;
+  border-radius: 8px;
+  z-index: 1000;
+  color:#fff;
+}
+
+
+.user-profile-popup .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; 
+  width: 100%;
+}
+
+.edit-form input, .edit-form select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #3e656c;
+  color: #fff;
+  width: 100%;
+  font-size: 16px;
+}
+
+.edit-form button {
+  padding: 10px 15px;
+  background-color: #118895;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.edit-form button:hover {
+  background-color: #166871;
+}
+
+.view-details {
+  font-size: 18px;
+}
+
+.view-details p {
+  margin-bottom: 10px;
+}
+
+.view-details button {
+  margin-top: 20px;
+  background-color: #118895;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.view-details button:hover {
+  background-color: #166871;
+}
+

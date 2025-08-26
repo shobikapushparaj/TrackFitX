@@ -1,38 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavBar from './NavBar';
-import '../index.css';import { FaPencilAlt, FaCheckCircle } from 'react-icons/fa'; 
+import '../styles/review.css';import { FaPencilAlt, FaCheckCircle } from 'react-icons/fa'; 
 const ReviewExercises = () => {
   const [exercises, setExercises] = useState([]);
   const userId = sessionStorage.getItem('userId');
 
 
   const fetchExercises = async () => {
-    const res = await axios.get(`http://localhost:4000/exercises/${userId}?type=todo`);
+    const res = await axios.get(`http://localhost:4000/api/exercise/exercises/${userId}?type=todo`);
     setExercises(res.data);
   };
 
   const markAsDone = async (id) => {
-    await axios.put(`http://localhost:4000/exercise/${id}/complete`, { type: 'done' });
+    await axios.put(`http://localhost:4000/api/exercise/exercise/${id}/complete`, { type: 'done' });
     fetchExercises();
   };
 
   const handleEdit = async (id) => {
-    const name = prompt("New Exercise Name:");
-    const duration = prompt("New Duration:");
-    await axios.put(`http://localhost:4000/exercise/${id}`, { name, duration });
-    fetchExercises();
+  const current = exercises.find(e => e._id === id);
+  if (!current) return alert("Exercise not found");
+
+  const nameInput = prompt("New Exercise Name:", current.name);
+  const durationInput = prompt("New Duration:", current.duration);
+  const countInput = prompt("New Count:", current.count);
+  const dateInput = prompt("New Date (YYYY-MM-DD):", current.date);
+  const timeInput = prompt("New Time (HH:MM):", current.time);
+
+  const updatedExercise = {
+    name: nameInput === null || nameInput.trim() === "" ? current.name : nameInput.trim(),
+    duration: durationInput === null || durationInput.trim() === "" ? current.duration : durationInput.trim(),
+    count: countInput === null || countInput.trim() === "" ? current.count : Number(countInput.trim()),
+    date: dateInput === null || dateInput.trim() === "" ? current.date : dateInput.trim(),
+    time: timeInput === null || timeInput.trim() === "" ? current.time : timeInput.trim(),
   };
+
+  try {
+    await axios.put(`http://localhost:4000/api/exercise/exercise/${id}`, updatedExercise);
+    fetchExercises();
+  } catch (error) {
+    console.error("Failed to edit exercise:", error);
+  }
+};
+
+
+
 
   useEffect(() => {
     fetchExercises();
-  }, [userId]); // just in case userId ever changes  
+  }, [userId]); 
 
   return (
     <div className="review-exercises-container">
       <NavBar />
       <h2 className="heading" style={{color: '#0c6b76',marginTop:'20px'}}>Review Exercises</h2>
-      {exercises.map(ex => (
+       {exercises.length === 0 ? (
+    <p style={{ textAlign: 'center', color: '#ccc', fontSize:'25px'}}>No exercises found.</p>
+  ) : (
+      exercises.map(ex => (
         <div key={ex._id} className="exercise-card">
           <div className="exercise-header">
             <h4 className="exercise-name">{ex.name}</h4>
@@ -51,7 +76,8 @@ const ReviewExercises = () => {
             <p><strong>Duration:</strong> {ex.duration}</p>
           </div>
         </div>
-      ))}
+      ))
+     )}
     </div>
   );
 };
