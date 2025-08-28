@@ -4,12 +4,19 @@ const { UserModel } = require('../models/schema');
 // Login 
 const login = async (req, res) => {
   const { name, password } = req.body;
-  console.log(`Login attempt: name=${name}, password=${password}`);
+  console.log(`Login attempt: name=${name}`);
+
   try {
     const user = await UserModel.findOne({ name });
     console.log('User found:', user);
+
     if (user && await bcrypt.compare(password, user.password)) {
-      res.status(200).json({ id: user._id, name: user.name, email: user.email });
+      // 🔹 Save session
+      req.session.userId = user._id;
+      req.session.name = user.name;
+      req.session.email = user.email;
+
+      res.status(200).json({ message: "Login successful" });
     } else {
       res.status(401).json({ message: 'Incorrect username or password' });
     }
@@ -41,11 +48,26 @@ const register = async (req, res) => {
     const user = new UserModel({ name, email, password: hashedPassword });
 
     await user.save();
-    res.status(201).json({ message: 'User created successfully', userId: user._id });
+
+    // 🔹 Auto-login after signup (optional)
+    req.session.userId = user._id;
+    req.session.name = user.name;
+    req.session.email = user.email;
+
+    res.status(201).json({ message: 'User created successfully' });
   } catch (err) {
     console.error("Error during registration:", err);
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { login, register };
+// Logout
+const logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) return res.status(500).json({ message: "Logout failed" });
+    res.clearCookie("connect.sid"); // 🔹 default session cookie
+    res.json({ message: "Logged out successfully" });
+  });
+};
+
+module.exports = { login, register, logout };

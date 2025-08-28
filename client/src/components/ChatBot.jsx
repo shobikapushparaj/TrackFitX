@@ -1,76 +1,45 @@
-import ReactMarkdown from 'react-markdown'; 
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import '../styles/chatbot.css';
+import React, { useState } from "react";
+import api from "../api/api";
+import NavBar from "./NavBar";
+import "../styles/chatbot.css";
 
-const ChatBot = ({ userId }) => {
-  const [question, setQuestion] = useState('');
-  const [chat, setChat] = useState([]);
-  const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    axios.get(`http://localhost:4000/api/user/getuser/${userId}`)
-      .then(res => {
-        console.log(res.data);
-        setUserData(res.data);
-      })
-      .catch(err => console.log(err));
-  }, [userId]);
+const ChatBot = () => {
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([]);
 
   const handleSend = async () => {
-    if (!question || !userData) return;
+    if (!input.trim()) return;
+    const userMsg = { sender: "user", text: input };
+    setMessages([...messages, userMsg]);
+    setInput("");
 
     try {
-      const res = await axios.post('http://localhost:5000/predict', {
-        query: question,
-        metrics: {
-            sex: userData.sex || "Male",
-            Age: parseInt(userData.age),
-            Height: parseFloat(userData.height) / 100, // cm to meters
-            Weight: parseFloat(userData.weight),
-            Hypertension:
-            userData.hypertension === true ||
-            userData.hypertension === "1" ||
-            userData.hypertension === 1 ||
-            userData.hypertension === "Yes"
-            ? "Yes"
-            : "No",
-
-           Diabetes:
-           userData.diabetes === true ||
-           userData.diabetes === "1" ||
-           userData.diabetes === 1 ||
-           userData.diabetes === "Yes"
-           ? "Yes"
-           : "No",
-      }
-
-      });
-      const botResponse = res.data.response;
-      setChat([...chat, { from: 'user', text: question }, { from: 'bot', text: botResponse }]);
+      const res = await api.post("/chatbot/message", { message: input });
+      const botMsg = { sender: "bot", text: res.data.reply };
+      setMessages((prev) => [...prev, botMsg]);
     } catch (err) {
-      console.error('Error contacting model:', err);
-      setChat([...chat, { from: 'user', text: question }, { from: 'bot', text: "Error contacting model." }]);
+      console.error(err);
     }
-
-    setQuestion('');
   };
 
   return (
     <div className="chatbot-container">
-      <div className="chat-box">
-        {chat.map((msg, idx) => (
-          <div key={idx} className={msg.from === 'user' ? 'user-msg' : 'bot-msg'}>
-            <ReactMarkdown>{msg.text}</ReactMarkdown>
+      <NavBar />
+      <h2>Fitness ChatBot</h2>
+      <div className="chat-window">
+        {messages.map((msg, index) => (
+          <div key={index} className={msg.sender === "user" ? "user-msg" : "bot-msg"}>
+            {msg.text}
           </div>
         ))}
       </div>
       <div className="chat-input">
         <input
           type="text"
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          placeholder="Ask something..."
+          placeholder="Type a message..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSend()}
         />
         <button onClick={handleSend}>Send</button>
       </div>

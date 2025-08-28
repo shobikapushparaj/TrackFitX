@@ -1,38 +1,31 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from "../api/api";
 import NavBar from './NavBar';
 import '../styles/addform.css';
+
 const AddExercise = () => {
-  const userId = sessionStorage.getItem('userId');
   const [formData, setFormData] = useState({
-    name: '',
-    date: '',
-    time: '',
-    count: '',
-    duration: '',
-    userId: userId,
-    type: 'todo'
+    name: '', date: '', time: '', count: '', duration: '', type: 'todo'
   });
 
-  const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.date || !formData.time || !formData.count || !formData.duration) {
-      alert("Please fill all the fields before submitting.");
+      alert("Please fill all the fields.");
       return;
     }
     try {
-      await axios.post('http://localhost:4000/api/exercise/add-exercise', formData);
+      await api.post("/exercise/add-exercise", formData);
       alert('Exercise Added!');
-      setFormData({ name: '', date: '', time: '', count: '', duration: '', userId, type: 'todo' });
+      setFormData({ name: '', date: '', time: '', count: '', duration: '', type: 'todo' });
     } catch (err) {
-      alert('Failed to add exercise. Please try again.');
+      alert('Failed to add exercise.');
       console.error(err);
     }
   };
+
   return (
     <div>
       <NavBar />
@@ -43,7 +36,7 @@ const AddExercise = () => {
           <input name="date" type="date" value={formData.date} onChange={handleChange} />
           <input name="time" type="time" value={formData.time} onChange={handleChange} />
           <input name="count" type="number" value={formData.count} onChange={handleChange} placeholder="Count" />
-          <input name="duration" value={formData.duration} onChange={handleChange} placeholder="Duration (e.g., 30 min)" />
+          <input name="duration" value={formData.duration} onChange={handleChange} placeholder="Duration" />
           <button type="submit">Add Exercise</button>
         </form>
       </div>

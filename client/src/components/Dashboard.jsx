@@ -1,31 +1,51 @@
-import { Link } from 'react-router-dom';
-import NavBar from './NavBar';
-import dashImage from '../images/dash.jpg';
-import '../styles/Dashboard.css'; 
+import React, { useEffect, useState } from "react";
+import api from "../api/api";
+import NavBar from "./NavBar";
+import "../styles/dashboard.css";
 
-function Dashboard() {
-  const backgroundStyle = {
-    backgroundImage: `url(${dashImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    minHeight: '100vh',
-  };
+const Dashboard = () => {
+  const [userData, setUserData] = useState({});
+  const [exercises, setExercises] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userRes = await api.get("/user/getuser");
+        setUserData(userRes.data);
+
+        const exerciseRes = await api.get("/exercise/exercises?type=todo");
+        setExercises(exerciseRes.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
-    <div style={backgroundStyle} className="dashboard-container">
+    <div className="dashboard-container">
       <NavBar />
-      <div className="slogan-left-container">
-        <h1 className="slogan-heading">
-          Every move and meal you track,<br />
-          Brings your fitness journey back on track
-        </h1>
-        <p className="slogan-subtext">
-          Start tracking now and see your transformation unfold.
-        </p>
-        <Link to='/addexercise' className="slogan-button">Add Exercise</Link>
+      <h1>Welcome, {userData.name}</h1>
+      <div className="dashboard-stats">
+        <p>Weight: {userData.weight} kg</p>
+        <p>Height: {userData.height} cm</p>
+        <p>Age: {userData.age}</p>
+        <p>Goal: {userData.goal}</p>
       </div>
+      <h2>Today's Exercises</h2>
+      {exercises.length === 0 ? (
+        <p>No exercises for today.</p>
+      ) : (
+        exercises.map((ex) => (
+          <div key={ex._id} className="exercise-card">
+            <h4>{ex.name}</h4>
+            <p>{ex.count} reps / {ex.duration}</p>
+            <p>{ex.date} at {ex.time}</p>
+          </div>
+        ))
+      )}
     </div>
   );
-}
+};
 
 export default Dashboard;

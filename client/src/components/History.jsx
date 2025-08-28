@@ -1,43 +1,40 @@
+import React, { useEffect, useState } from "react";
+import api from "../api/api";
+import NavBar from "./NavBar";
+import "../styles/history.css";
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import NavBar from './NavBar';
-import '../styles/history.css'
-export const History = () => {
-  const [completed, setCompleted] = useState([]);
-  const userId = sessionStorage.getItem('userId');
+const History = () => {
+  const [completedExercises, setCompletedExercises] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:4000/api/exercise/exercises/${userId}?type=done`)
-      .then(res => {
-        console.log(res.data);
-        setCompleted(res.data);
-      });
-  }, [userId]);
+    const fetchHistory = async () => {
+      try {
+        const res = await api.get("/exercise/exercises?type=done");
+        setCompletedExercises(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchHistory();
+  }, []);
 
   return (
     <div className="history-container">
-  <NavBar />
-  <h2 className="history-title">Exercise History</h2>
-  {completed.length === 0 ? (
-    <p style={{ textAlign: 'center', color: '#ccc' }}>No completed exercises found.</p>
-  ) : (
-    completed.map(c => (
-      <div className="history-card" key={c._id}>
-        <div style={{display:'flex',alignItems:'center',flexDirection:'column'}}>
-        <div>
-        <h4>{c.name}</h4>
-        <p><strong>Date:</strong> {c.date}</p>
-        <p><strong>Time:</strong> {c.time}</p>
-        <p><strong>Count:</strong> {c.count}</p>
-        <p><strong>Duration:</strong> {c.duration}</p>
-        </div>
-        </div>
-      </div>
-    ))
-  )}
-</div>
-
+      <NavBar />
+      <h2>Completed Exercises</h2>
+      {completedExercises.length === 0 ? (
+        <p>No completed exercises found.</p>
+      ) : (
+        completedExercises.map((ex) => (
+          <div key={ex._id} className="exercise-card">
+            <h4>{ex.name}</h4>
+            <p>{ex.count} reps / {ex.duration}</p>
+            <p>{ex.date} at {ex.time}</p>
+          </div>
+        ))
+      )}
+    </div>
   );
-
 };
+
+export default History;

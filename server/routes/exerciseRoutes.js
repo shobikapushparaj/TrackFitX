@@ -8,13 +8,14 @@ const {
   updateExercise,
   markExerciseAsComplete
 } = require('../controllers/exerciseController');
+const authMiddleware = require("../middleware/authMiddleware");
 
-
-router.post('/add-exercise', addExercise);
-router.get('/exercises/:userId', getExercises);
-router.delete('/delete-exercise/:id', deleteExercise);
-router.get('/completed/:userId', getCompletedExercises);
-router.put('/exercise/:id', updateExercise);
-router.put('/exercise/:id/complete', markExerciseAsComplete);
+// Protected routes
+router.post('/add-exercise', authMiddleware, addExercise);
+router.get('/exercises/:userId', authMiddleware, getExercises);
+router.delete('/delete-exercise/:id', authMiddleware, deleteExercise);
+router.get('/completed/:userId', authMiddleware, getCompletedExercises);
+router.put('/exercise/:id', authMiddleware, updateExercise);
+router.put('/exercise/:id/complete', authMiddleware, markExerciseAsComplete);
 
 module.exports = router;

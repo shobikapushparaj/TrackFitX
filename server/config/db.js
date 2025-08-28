@@ -1,11 +1,15 @@
-const mongoose = require('mongoose');
+// config/db.js
+const mongoose = require("mongoose");
 
-const connectDB = async () => {
+const connectDB = async (uri) => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/TrackFitx");
-    console.log("DB connection success");
+    await mongoose.connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("✅ MongoDB connected");
   } catch (err) {
-    console.error("DB not connected:", err.message);
+    console.error("❌ MongoDB connection error:", err.message);
     process.exit(1);
   }
 };
